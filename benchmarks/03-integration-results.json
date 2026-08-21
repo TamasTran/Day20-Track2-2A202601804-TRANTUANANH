@@ -1,0 +1,104 @@
+{
+  "backend": "keyword overlap",
+  "mean_ms": {
+    "embed": 0.0,
+    "retrieve": 0.1,
+    "llm": 10444.5,
+    "total": 10444.7
+  },
+  "results": [
+    {
+      "query": "Why is goodput more useful than raw throughput?",
+      "answer": "Based on the context provided, **Goodput** is more useful than raw throughput because it focuses on the specific metrics that matter for system stability and performance:\n\n1.  **TTFT (Throughput to Target Frequency):** Goodput counts only requests per second that met the Target Throughput and Target Processing Time (TTFT) targets. This ensures that the system never runs below its intended performance level.\n2.  **TPOT (Throughput to Processing Time):** It also counts requests per second that met the Target Throughput and Target Processing Time.\n3.  **The Problem with Raw Throughput:** The context explicitly states that \"Throughput at saturation ignores SLOs\" (System-Level Objectives). This means raw throughput can be artificially inflated when the system is already at or near its limits, making it a misleading metric for determining if the system is stable or failing.\n\nTherefore, Goodput is more useful because it provides a realistic view of the system's actual performance relative",
+      "contexts": [
+        {
+          "id": "goodput",
+          "score": 1.0
+        },
+        {
+          "id": "paged",
+          "score": 0.0
+        },
+        {
+          "id": "radix",
+          "score": 0.0
+        }
+      ],
+      "embed_backend": "keyword overlap",
+      "timings_ms": {
+        "embed": 0.0,
+        "retrieve": 0.1,
+        "llm": 16729.5,
+        "total": 16729.6
+      },
+      "server_timings": {
+        "prompt_n": 151,
+        "prompt_ms": 1539.242,
+        "predicted_n": 200,
+        "predicted_ms": 13124.197
+      }
+    },
+    {
+      "query": "What problem does PagedAttention actually solve?",
+      "answer": "PagedAttention solves the problem of **internal fragmentation** in GPU memory.\n\nBy storing the Key-Value (KV) cache in non-contiguous pages, the model avoids the wasted space that would exist if the KV cache were stored contiguously (e.g., in a standard contiguous block of memory). This non-contiguous layout allows for more efficient memory usage and better cache locality on the GPU.",
+      "contexts": [
+        {
+          "id": "paged",
+          "score": 1.0
+        },
+        {
+          "id": "radix",
+          "score": 0.0
+        },
+        {
+          "id": "disagg",
+          "score": 0.0
+        }
+      ],
+      "embed_backend": "keyword overlap",
+      "timings_ms": {
+        "embed": 0.0,
+        "retrieve": 0.1,
+        "llm": 6531.5,
+        "total": 6531.7
+      },
+      "server_timings": {
+        "prompt_n": 114,
+        "prompt_ms": 1111.278,
+        "predicted_n": 82,
+        "predicted_ms": 5276.397
+      }
+    },
+    {
+      "query": "When does splitting prefill and decode help?",
+      "answer": "Based on the provided context, splitting prefill and decode helps primarily to **avoid redundant computation**.\n\nThe context explains that prefill is compute-bound, meaning it requires significant processing power, while decode is memory-bandwidth-bound. By splitting them into separate pools, the system can skip the expensive prefill step entirely for tokens that have already been processed in a shared prefix (achieved via RadixAttention caching). This optimization allows the engine to skip the expensive prefill entirely for tokens that have already been processed in a shared prefix.",
+      "contexts": [
+        {
+          "id": "disagg",
+          "score": 2.0
+        },
+        {
+          "id": "radix",
+          "score": 1.0
+        },
+        {
+          "id": "batching",
+          "score": 1.0
+        }
+      ],
+      "embed_backend": "keyword overlap",
+      "timings_ms": {
+        "embed": 0.0,
+        "retrieve": 0.1,
+        "llm": 8072.5,
+        "total": 8072.7
+      },
+      "server_timings": {
+        "prompt_n": 113,
+        "prompt_ms": 1135.041,
+        "predicted_n": 107,
+        "predicted_ms": 6748.229
+      }
+    }
+  ]
+}
